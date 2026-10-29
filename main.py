@@ -10,6 +10,8 @@ app = FastAPI()
 UPLOAD_DIR = "/tmp/temp_files"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+STRIPE_LINK = "https://stripe.com"
+
 @app.get("/", response_class=HTMLResponse)
 async def main():
     return """
@@ -33,7 +35,7 @@ async def main():
         <div class="box">
             <form action="/compress" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" required><br>
-                <button type="submit">Compress Now ($1)</button>
+                <button type="submit">Upload & Compress Now</button>
             </form>
         </div>
     </body>
@@ -83,10 +85,27 @@ async def compress_file(file: UploadFile = File(...)):
         else:
             raise HTTPException(status_code=400, detail="Unsupported file type.")
             
-        if not os.path.exists(output_path):
-            raise Exception("Compression failed to generate output file.")
-            
-        return FileResponse(output_path, media_type='application/octet-stream', filename=f"compressed_{file.filename}")
+        # Success Screen with the Payment Barrier Link
+        return HTMLResponse(f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Compression Complete!</title>
+            <style>
+                body {{ font-family: sans-serif; text-align: center; background: #121212; color: white; padding: 50px; }}
+                .box {{ border: 2px solid #00ff88; padding: 40px; border-radius: 10px; max-width: 500px; margin: auto; }}
+                a {{ display: inline-block; background: #00ff88; color: black; text-decoration: none; padding: 15px 30px; font-weight: bold; border-radius: 5px; font-size: 18px; margin-top: 20px; }}
+            </style>
+        </head>
+        <body>
+            <div class="box">
+                <h2>⚡ Compression Successful! ⚡</h2>
+                <p>Your file is optimized, safe, and ready to download.</p>
+                <a href="{STRIPE_LINK}">Pay $1 to Download Instantly</a>
+            </div>
+        </body>
+        </html>
+        """)
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
