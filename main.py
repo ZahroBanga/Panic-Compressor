@@ -10,7 +10,7 @@ app = FastAPI()
 UPLOAD_DIR = "/tmp/temp_files"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-STRIPE_LINK = "https://stripe.com"
+STRIPE_LINK = "https://buy.stripe.com/4gMbJ1c76dV04as2exb3q00"
 
 @app.get("/", response_class=HTMLResponse)
 async def main():
