@@ -29,18 +29,25 @@ async def main():
             button:hover { background: #00cc6e; }
         </style>
     </head>
-    <body>
-        <h1>File Too Big for TikTok / YouTube?</h1>
-        <p>Compress it instantly and cleanly. No ads. No watermark.</p>
+       <body>
+        <h1>File Too Large for TikTok / Discord / YouTube Shorts?</h1>
+        <p>Compress video and image files instantly online. 100% clean. No watermark. No virus.</p>
+        
         <div class="box">
             <form action="/compress" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" required><br>
                 <button type="submit">Upload & Compress Now</button>
             </form>
         </div>
-    </body>
-    </html>
-    """
+
+        <!-- SEARCH ENGINE ALGORITHM TARGETS -->
+        <div style="margin-top: 40px; font-size: 11px; color: #444; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+            <h3>Supported Fixes:</h3>
+            <p>How to compress mp4 for discord upload under 25mb free online. Convert large mov file to vertical tiktok format without losing quality. Reduce webm video size for youtube shorts upload error. Quick online jpeg compressor no watermark high quality. Compress transparent png file size mac windows. Fix discord file too powerful error message fix instantly.</p>
+        </div>
+</body>
+</html>
+ """
 
 @app.post("/compress")
 async def compress_file(file: UploadFile = File(...)):
